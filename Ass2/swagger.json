@@ -1,0 +1,206 @@
+{
+    "swagger": "2.0",
+    "basePath": "/",
+    "paths": {
+        "/wb_ec_indicators": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "description": "This operation retrieves all available collections.",
+                "operationId": "get_all__class",
+                "tags": [
+                    "Indicator"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "description": "Add a new indicator data",
+                "operationId": "post_all__class",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Indicator"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Indicator"
+                ]
+            }
+        },
+        "/wb_ec_indicators/{id}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "The indicator ID",
+                    "name": "id",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Indicator was not found"
+                    }
+                },
+                "description": "Get a collection by its ID",
+                "operationId": "get_id__class",
+                "tags": [
+                    "Indicator"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Indicator was not found"
+                    }
+                },
+                "description": "Deletes an existing collection by indicator ID",
+                "operationId": "delete_id__class",
+                "tags": [
+                    "Indicator"
+                ]
+            }
+        },
+        "/wb_ec_indicators/{id}/{country}/{year}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "given year",
+                    "name": "year",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "in": "path",
+                    "description": "given country",
+                    "name": "country",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "in": "path",
+                    "description": "The indicator ID",
+                    "name": "id",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Data was not found"
+                    }
+                },
+                "description": "Retrieve economic indicator value for given country and a year",
+                "operationId": "get_country__year__class",
+                "tags": [
+                    "Indicator"
+                ]
+            }
+        },
+        "/wb_ec_indicators/{id}/{year}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "given year",
+                    "name": "year",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "The indicator ID",
+                    "name": "id",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Data was not found"
+                    }
+                },
+                "description": "Retrieve top/bottom economic indicator values for a given year",
+                "operationId": "get_country__year__class",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "top or bottom + page numbers, e.g top10, bottom10"
+                    }
+                ],
+                "tags": [
+                    "Indicator"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "World Bank Economic Indicators",
+        "version": "1.0",
+        "description": "This is just a API that allow customer to read and store some publicly available economic indicator data for countries around the world, and to access the data."
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "Indicator",
+            "description": "Default namespace"
+        }
+    ],
+    "definitions": {
+        "Indicator": {
+            "properties": {
+                "indicator_id": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    }
+}
